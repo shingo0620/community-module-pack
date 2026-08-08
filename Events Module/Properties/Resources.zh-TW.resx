@@ -4,11 +4,10 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-
   <data name="All Events" xml:space="preserve"><value>所有事件</value></data>
-  <data name="Alphabetical" xml:space="preserve"><value>依字母排序</value></data>
+  <data name="Alphabetical" xml:space="preserve"><value>依名稱排序</value></data>
   <data name="Events and Metas" xml:space="preserve"><value>事件與大型事件</value></data>
-  <data name="Hidden Events" xml:space="preserve"><value>隱藏的事件</value></data>
+  <data name="Hidden Events" xml:space="preserve"><value>隱藏事件</value></data>
   <data name="Next Up" xml:space="preserve"><value>即將開始</value></data>
   <data name="Enable Notifications" xml:space="preserve"><value>啟用通知</value></data>
   <data name="Mute Notifications" xml:space="preserve"><value>通知靜音</value></data>
@@ -23,7 +22,6 @@
   <data name="Upcoming Event Times:" xml:space="preserve"><value>接下來的事件時間：</value></data>
   <data name="Notification_Tooltip" xml:space="preserve"><value>按左鍵複製傳送點。&#xA;按右鍵關閉通知。</value></data>
   <data name="Failed to load metas from events.json!" xml:space="preserve"><value>無法從 events.json 載入大型事件！</value></data>
-
   <data name="Day-Night Cycle" xml:space="preserve"><value>日夜循環</value></data>
   <data name="Day" xml:space="preserve"><value>白天</value></data>
   <data name="Night" xml:space="preserve"><value>夜晚</value></data>
@@ -32,14 +30,51 @@
   <data name="Server Reset" xml:space="preserve"><value>伺服器重置</value></data>
   <data name="Other" xml:space="preserve"><value>其他</value></data>
   <data name="Group Event" xml:space="preserve"><value>團隊事件</value></data>
+  <data name="Ley-Line Anomaly (Timberline Falls)" xml:space="preserve"><value>魔徑異常體（林線瀑布）</value></data>
+  <data name="Ley-Line Anomaly (Iron Marches)" xml:space="preserve"><value>魔徑異常體（鋼鐵平原）</value></data>
+  <data name="Ley-Line Anomaly (Gendarran Fields)" xml:space="preserve"><value>魔徑異常體（甘達拉戰區）</value></data>
   <data name="World Bosses" xml:space="preserve"><value>世界首領</value></data>
-  <data name="Meta Event" xml:space="preserve"><value>大型事件</value></data>
-
-  <data name="Shadow Behemoth" xml:space="preserve"><value>暗影巨獸</value></data>
-  <data name="Svanir Shaman Chief" xml:space="preserve"><value>斯瓦尼亞薩滿酋長</value></data>
+  <data name="Admiral Taidha Covington" xml:space="preserve"><value>上將泰達·科文頓</value></data>
+  <data name="Claw of Jormag" xml:space="preserve"><value>卓瑪之爪</value></data>
+  <data name="Drakkar, the Ice Dragon's Champion" xml:space="preserve"><value>冰龍首領德拉克</value></data>
+  <data name="Evolved Jungle Wurm" xml:space="preserve"><value>進化叢林地蟲</value></data>
   <data name="Fire Elemental" xml:space="preserve"><value>火元素</value></data>
   <data name="Great Jungle Wurm" xml:space="preserve"><value>巨型叢林地蟲</value></data>
+  <data name="Inquest Golem Mark II" xml:space="preserve"><value>審訊團魔像二型</value></data>
+  <data name="Karka Queen" xml:space="preserve"><value>喀殼蟲女王</value></data>
+  <data name="Megadestroyer" xml:space="preserve"><value>超能毀滅者</value></data>
+  <data name="Modniir Ulgoth" xml:space="preserve"><value>莫迪爾沃爾格斯</value></data>
+  <data name="Shadow Behemoth" xml:space="preserve"><value>暗影巨獸</value></data>
   <data name="The Shatterer" xml:space="preserve"><value>碎裂巨獸</value></data>
-  <data name="Claw of Jormag" xml:space="preserve"><value>卓瑪之爪</value></data>
-  <data name="Tequatl the Sunless" xml:space="preserve"><value>陰鬼「吞噬托」</value></data>
+  <data name="Svanir Shaman Chief" xml:space="preserve"><value>斯瓦尼亞薩滿酋長</value></data>
+  <data name="Tequatl the Sunless" xml:space="preserve"><value>無日者泰瑞亞特</value></data>
+  <data name="Meta Event" xml:space="preserve"><value>大型事件</value></data>
+  <data name="Crash Site" xml:space="preserve"><value>墜機地點</value></data>
+  <data name="Sandstorm" xml:space="preserve"><value>沙塵暴</value></data>
+  <data name="Securing Verdant Brink" xml:space="preserve"><value>確保蒼翠邊界安全</value></data>
+  <data name="Night and the Enemy" xml:space="preserve"><value>敵軍夜襲</value></data>
+  <data name="Night Bosses" xml:space="preserve"><value>夜間首領</value></data>
+  <data name="Trial by Fire" xml:space="preserve"><value>火焰試煉</value></data>
+  <data name="Battle in Tarir" xml:space="preserve"><value>塔瑞爾之戰</value></data>
+  <data name="Defending Tarir" xml:space="preserve"><value>防守塔瑞爾</value></data>
+  <data name="Chak Gerent" xml:space="preserve"><value>查克蟲王</value></data>
+  <data name="Advancing on the Blighting Towers" xml:space="preserve"><value>向枯萎之塔推進</value></data>
+  <data name="Casino Blitz" xml:space="preserve"><value>俱樂部閃電戰</value></data>
+  <data name="Choya Pinata" xml:space="preserve"><value>丘牙獸彩罐</value></data>
+  <data name="The Search for Buried Treasure" xml:space="preserve"><value>尋找埋藏的寶藏</value></data>
+  <data name="The Path to Ascension" xml:space="preserve"><value>晉升之路</value></data>
+  <data name="Junundu Rising" xml:space="preserve"><value>巨嘴蟲崛起</value></data>
+  <data name="Maws of Torment" xml:space="preserve"><value>苦痛之口</value></data>
+  <data name="Forged with Fire" xml:space="preserve"><value>烈火鍛造</value></data>
+  <data name="Serpents' Ire" xml:space="preserve"><value>群蛇之怒</value></data>
+  <data name="Palawadan, Jewel of Istan" xml:space="preserve"><value>帕拉瓦丹，伊斯坦之珠</value></data>
+  <data name="Dangerous Prey" xml:space="preserve"><value>危險獵物</value></data>
+  <data name="Thunderhead Keep" xml:space="preserve"><value>雷雲要塞</value></data>
+  <data name="The Oil Floes" xml:space="preserve"><value>油流浮冰</value></data>
+  <data name="A Concert for the Ages" xml:space="preserve"><value>傳世音樂會</value></data>
+  <data name="Ceremony of the Sacred Flame" xml:space="preserve"><value>聖火儀式</value></data>
+  <data name="The Haunting of Doomlore Shrine" xml:space="preserve"><value>毀滅傳說神殿鬧鬼事件</value></data>
+  <data name="The Ooze Pit Trials" xml:space="preserve"><value>軟泥坑試煉</value></data>
+  <data name="Storms of Winter" xml:space="preserve"><value>冬日風暴</value></data>
+  <data name="Watched Events" xml:space="preserve"><value>已追蹤事件</value></data>
 </root>
