@@ -28,7 +28,7 @@ namespace Events_Module {
         private static int _visibleNotifications = 0;
 
         private EventNotification(string title, AsyncTexture2D icon, string message, string waypoint) {
-            string tooltipText = Resources.Notification_Tooltip;
+            string tooltipText = Resources.ResourceManager.GetString("Notification_Tooltip", System.Globalization.CultureInfo.InvariantCulture);
 
             _icon = icon;
 
