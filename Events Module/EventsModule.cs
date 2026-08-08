@@ -206,6 +206,12 @@ namespace Events_Module {
                     ShowToggleButton = true
                 };
 
+                new RasterText(es2.Text, 14, 200) {
+                    Parent   = es2,
+                    Location = new Point(85, 2),
+                    ZIndex   = 1
+                };
+
                 if (meta.Texture != null && meta.Texture.HasTexture) {
                     es2.Icon = meta.Texture;
                 }

@@ -37,16 +37,26 @@ namespace Events_Module {
             this.Location         = new Point(EventsModule.ModuleInstance.NotificationPosition.X, EventsModule.ModuleInstance.NotificationPosition.Y + (NOTIFICATION_HEIGHT + 15) * _visibleNotifications);
             this.BasicTooltipText = tooltipText;
 
-            string wrappedTitle = DrawUtil.WrapText(Content.DefaultFont14, title, this.Width - NOTIFICATION_HEIGHT - 20);
-
-            var titleLbl = new Label() {
+            var rasterTitle = new RasterText(title, 14, this.Width - NOTIFICATION_HEIGHT - 20) {
                 Parent           = this,
-                Location         = new Point(NOTIFICATION_HEIGHT                   + 10, 5),
-                Size             = new Point(this.Width - NOTIFICATION_HEIGHT - 10, this.Height / 2),
-                Font             = Content.DefaultFont14,
+                Location         = new Point(NOTIFICATION_HEIGHT + 10, 5),
                 BasicTooltipText = tooltipText,
-                Text             = wrappedTitle,
+                ZIndex            = 1
             };
+
+            if (!rasterTitle.HasTexture) {
+                rasterTitle.Dispose();
+
+                var wrappedTitle = DrawUtil.WrapText(Content.DefaultFont14, title, this.Width - NOTIFICATION_HEIGHT - 20);
+                new Label() {
+                    Parent           = this,
+                    Location         = new Point(NOTIFICATION_HEIGHT + 10, 5),
+                    Size             = new Point(this.Width - NOTIFICATION_HEIGHT - 10, this.Height / 2),
+                    Font             = Content.DefaultFont14,
+                    BasicTooltipText = tooltipText,
+                    Text             = wrappedTitle,
+                };
+            }
 
             string wrapped = DrawUtil.WrapText(Content.DefaultFont14, message, this.Width - NOTIFICATION_HEIGHT - 20);
 
