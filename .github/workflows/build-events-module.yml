@@ -1,0 +1,56 @@
+name: Build Events Module
+
+on:
+  push:
+    branches:
+      - feature/zh-tw-localization
+    paths:
+      - 'Events Module/**'
+      - '.github/workflows/build-events-module.yml'
+  pull_request:
+    paths:
+      - 'Events Module/**'
+      - '.github/workflows/build-events-module.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore "Community Module Pack.sln"
+
+      - name: Build Events Module
+        run: msbuild "Events Module/Events Module.csproj" /p:Configuration=Release /p:Platform=AnyCPU /m
+
+      - name: Verify Traditional Chinese resource
+        shell: pwsh
+        run: |
+          $resource = Get-ChildItem -Path "Events Module/bin/Release" -Recurse -Filter "Events Module.resources.dll" |
+            Where-Object { $_.FullName -match '[\\/]zh-TW[\\/]' } |
+            Select-Object -First 1
+
+          if (-not $resource) {
+            Write-Error "找不到 zh-TW/Events Module.resources.dll，繁中資源未正確編譯。"
+            exit 1
+          }
+
+          Write-Host "繁中資源驗證成功：$($resource.FullName)"
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: events-module-zh-tw
+          path: Events Module/bin/Release/**
+          if-no-files-found: error
+          retention-days: 14
