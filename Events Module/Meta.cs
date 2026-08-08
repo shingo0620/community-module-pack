@@ -119,7 +119,7 @@ namespace Events_Module {
                 if (timeUntil < (e.Reminder ?? -1) && e.IsWatched) {
                     if (!e.HasAlerted && EventsModule.ModuleInstance.NotificationsEnabled) {
                         EventNotification.ShowNotification(
-                            Resources.ResourceManager.GetString(e.Name) ?? e.Name,
+                            EventsModule.GetLocalizedString(e.Name),
                             e.Texture,
                             string.Format(Resources.Starts_in__0_, timeUntil.Minutes().Humanize()),
                             10f,

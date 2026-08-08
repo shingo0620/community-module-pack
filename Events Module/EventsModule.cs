@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,12 @@ namespace Events_Module {
 
     [Export(typeof(Module))]
     public class EventsModule : Module {
+
+        private static readonly CultureInfo ModuleCulture = CultureInfo.GetCultureInfo("zh-TW");
+
+        static EventsModule() {
+            Resources.Culture = ModuleCulture;
+        }
 
         internal static EventsModule ModuleInstance;
 
@@ -191,8 +198,8 @@ namespace Events_Module {
 
                 var es2 = new DetailsButton {
                     Parent           = eventPanel,
-                    BasicTooltipText = Resources.ResourceManager.GetString(meta.Category) ?? meta.Category,
-                    Text             = Resources.ResourceManager.GetString(meta.Name) ?? meta.Name,
+                    BasicTooltipText = GetLocalizedString(meta.Category),
+                    Text             = GetLocalizedString(meta.Name),
                     IconSize         = DetailsIconSize.Small,
                     ShowVignette     = false,
                     HighlightType    = DetailsHighlightType.LightHighlight,
@@ -295,12 +302,12 @@ namespace Events_Module {
             var evWatched = eventCategories.AddMenuItem(_ecWatchedEvents);
             evWatched.Click += delegate {
                 eventPanel.FilterChildren<DetailsButton>(db =>
-                    Meta.Events.Find(m => db.Text == (Resources.ResourceManager.GetString(m.Name) ?? m.Name)).IsWatched
+                    Meta.Events.Find(m => db.Text == GetLocalizedString(m.Name)).IsWatched
                 );
             };
 
             foreach (IGrouping<string, Meta> e in submetas) {
-                var category = Resources.ResourceManager.GetString(e.Key) ?? e.Key;
+                var category = GetLocalizedString(e.Key);
                 var ev = eventCategories.AddMenuItem(category);
                 ev.Click += delegate {
                     eventPanel.FilterChildren<DetailsButton>(db => string.Equals(db.BasicTooltipText, category));
@@ -390,6 +397,8 @@ namespace Events_Module {
         // Utility
         private static bool UrlIsValid(string source) => Uri.TryCreate(source, UriKind.Absolute, out Uri uriResult) && uriResult.Scheme == Uri.UriSchemeHttps;
 
+        internal static string GetLocalizedString(string key) => Resources.ResourceManager.GetString(key, ModuleCulture) ?? key;
+
         private double _elapsedSeconds = 0;
 
         protected override void Update(GameTime gameTime) {
@@ -410,7 +419,7 @@ namespace Events_Module {
 
         private IList<string> GetOrderedNextUpEventNames() {
             return Meta.Events.OrderBy(el => el.NextTime)
-                       .Select(el => Resources.ResourceManager.GetString(el.Name) ?? el.Name)
+                       .Select(el => GetLocalizedString(el.Name))
                        .ToList();
         }
 
