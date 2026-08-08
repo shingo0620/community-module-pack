@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
+  </ItemGroup>
+</Project>
