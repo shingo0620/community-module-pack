@@ -1,56 +1,80 @@
-name: Build Events Module
-
-on:
-  push:
-    branches:
-      - feature/zh-tw-localization
-    paths:
-      - 'Events Module/**'
-      - '.github/workflows/build-events-module.yml'
-  pull_request:
-    paths:
-      - 'Events Module/**'
-      - '.github/workflows/build-events-module.yml'
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Restore NuGet packages
-        run: nuget restore "Community Module Pack.sln"
-
-      - name: Build Events Module
-        run: msbuild "Events Module/Events Module.csproj" /p:Configuration=Release /p:Platform=AnyCPU /m
-
-      - name: Verify Traditional Chinese resource
-        shell: pwsh
-        run: |
-          $resource = Get-ChildItem -Path "Events Module/bin/Release" -Recurse -Filter "Events Module.resources.dll" |
-            Where-Object { $_.FullName -match '[\\/]zh-TW[\\/]' } |
-            Select-Object -First 1
-
-          if (-not $resource) {
-            Write-Error "找不到 zh-TW/Events Module.resources.dll，繁中資源未正確編譯。"
-            exit 1
-          }
-
-          Write-Host "繁中資源驗證成功：$($resource.FullName)"
-
-      - name: Upload BHM module
-        uses: actions/upload-artifact@v4
-        with:
-          name: events-module-zh-tw
-          path: 'Events Module/bin/Release/Events Module.bhm'
-          if-no-files-found: error
-          retention-days: 14
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="All Events" xml:space="preserve"><value>所有事件</value></data>
+  <data name="Alphabetical" xml:space="preserve"><value>依名稱排序</value></data>
+  <data name="Events and Metas" xml:space="preserve"><value>事件與大型事件</value></data>
+  <data name="Hidden Events" xml:space="preserve"><value>隱藏事件</value></data>
+  <data name="Next Up" xml:space="preserve"><value>即將開始</value></data>
+  <data name="Enable Notifications" xml:space="preserve"><value>啟用通知</value></data>
+  <data name="Mute Notifications" xml:space="preserve"><value>通知靜音</value></data>
+  <data name="Event Categories" xml:space="preserve"><value>事件分類</value></data>
+  <data name="Event Search" xml:space="preserve"><value>搜尋事件</value></data>
+  <data name="Read about this event on the wiki." xml:space="preserve"><value>在 Wiki 查看此事件。</value></data>
+  <data name="Nearby waypoint: {0}" xml:space="preserve"><value>附近傳送點：{0}</value></data>
+  <data name="Failed to copy waypoint to clipboard. Try again." xml:space="preserve"><value>無法將傳送點複製到剪貼簿，請再試一次。</value></data>
+  <data name="Copied waypoint to clipboard!" xml:space="preserve"><value>已將傳送點複製到剪貼簿！</value></data>
+  <data name="Click to toggle tracking for this event." xml:space="preserve"><value>點擊以切換此事件的追蹤狀態。</value></data>
+  <data name="Starts in {0}" xml:space="preserve"><value>{0} 後開始</value></data>
+  <data name="Upcoming Event Times:" xml:space="preserve"><value>接下來的事件時間：</value></data>
+  <data name="Notification_Tooltip" xml:space="preserve"><value>按左鍵複製傳送點。&#xA;按右鍵關閉通知。</value></data>
+  <data name="Failed to load metas from events.json!" xml:space="preserve"><value>無法從 events.json 載入大型事件！</value></data>
+  <data name="Day-Night Cycle" xml:space="preserve"><value>日夜循環</value></data>
+  <data name="Day" xml:space="preserve"><value>白天</value></data>
+  <data name="Night" xml:space="preserve"><value>夜晚</value></data>
+  <data name="Dawn" xml:space="preserve"><value>黎明</value></data>
+  <data name="Dusk" xml:space="preserve"><value>黃昏</value></data>
+  <data name="Server Reset" xml:space="preserve"><value>伺服器重置</value></data>
+  <data name="Other" xml:space="preserve"><value>其他</value></data>
+  <data name="Group Event" xml:space="preserve"><value>團隊事件</value></data>
+  <data name="Ley-Line Anomaly (Timberline Falls)" xml:space="preserve"><value>魔徑異常體（林線瀑布）（Ley-Line Anomaly (Timberline Falls)）</value></data>
+  <data name="Ley-Line Anomaly (Iron Marches)" xml:space="preserve"><value>魔徑異常體（鋼鐵平原）（Ley-Line Anomaly (Iron Marches)）</value></data>
+  <data name="Ley-Line Anomaly (Gendarran Fields)" xml:space="preserve"><value>魔徑異常體（甘達拉戰區）（Ley-Line Anomaly (Gendarran Fields)）</value></data>
+  <data name="World Bosses" xml:space="preserve"><value>世界BOSS</value></data>
+  <data name="Admiral Taidha Covington" xml:space="preserve"><value>上將泰達·科文頓（Admiral Taidha Covington）</value></data>
+  <data name="Claw of Jormag" xml:space="preserve"><value>卓瑪之爪（Claw of Jormag）</value></data>
+  <data name="Drakkar, the Ice Dragon's Champion" xml:space="preserve"><value>冰霜巨龍首領：德拉克（Drakkar, the Ice Dragon's Champion）</value></data>
+  <data name="Evolved Jungle Wurm" xml:space="preserve"><value>進化叢林地蟲（Evolved Jungle Wurm）</value></data>
+  <data name="Fire Elemental" xml:space="preserve"><value>火元素（Fire Elemental）</value></data>
+  <data name="Great Jungle Wurm" xml:space="preserve"><value>巨型叢林地蟲（Great Jungle Wurm）</value></data>
+  <data name="Inquest Golem Mark II" xml:space="preserve"><value>審訊團魔像馬克II型（Inquest Golem Mark II）</value></data>
+  <data name="Karka Queen" xml:space="preserve"><value>喀殼蟲女王（Karka Queen）</value></data>
+  <data name="Megadestroyer" xml:space="preserve"><value>超能毀滅者（Megadestroyer）</value></data>
+  <data name="Modniir Ulgoth" xml:space="preserve"><value>莫迪爾沃爾格斯（Modniir Ulgoth）</value></data>
+  <data name="Shadow Behemoth" xml:space="preserve"><value>暗影巨獸（Shadow Behemoth）</value></data>
+  <data name="The Shatterer" xml:space="preserve"><value>碎裂巨獸（The Shatterer）</value></data>
+  <data name="Svanir Shaman Chief" xml:space="preserve"><value>斯瓦尼亞薩滿酋長（Svanir Shaman Chief）</value></data>
+  <data name="Tequatl the Sunless" xml:space="preserve"><value>陰鬼"吞噬托"（Tequatl the Sunless）</value></data>
+  <data name="Meta Event" xml:space="preserve"><value>大型事件</value></data>
+  <data name="Crash Site" xml:space="preserve"><value>墜毀點（Crash Site）</value></data>
+  <data name="Sandstorm" xml:space="preserve"><value>沙塵暴！（Sandstorm）</value></data>
+  <data name="Securing Verdant Brink" xml:space="preserve"><value>防守蒼翠邊界（Securing Verdant Brink）</value></data>
+  <data name="Night and the Enemy" xml:space="preserve"><value>敵軍夜襲（Night and the Enemy）</value></data>
+  <data name="Night Bosses" xml:space="preserve"><value>夜間首領（Night Bosses）</value></data>
+  <data name="Trial by Fire" xml:space="preserve"><value>火焰試煉（Trial by Fire）</value></data>
+  <data name="Battle in Tarir" xml:space="preserve"><value>塔瑞爾之戰（Battle in Tarir）</value></data>
+  <data name="Defending Tarir" xml:space="preserve"><value>保衛塔瑞爾（Defending Tarir）</value></data>
+  <data name="Chak Gerent" xml:space="preserve"><value>查克蟲王（Chak Gerent）</value></data>
+  <data name="Advancing on the Blighting Towers" xml:space="preserve"><value>向枯萎之塔推進（Advancing on the Blighting Towers）</value></data>
+  <data name="Casino Blitz" xml:space="preserve"><value>賭場閃電戰（Casino Blitz）</value></data>
+  <data name="Choya Pinata" xml:space="preserve"><value>丘牙獸彩罐（Choya Piñata）</value></data>
+  <data name="The Search for Buried Treasure" xml:space="preserve"><value>尋找埋藏的寶藏（The Search for Buried Treasure）</value></data>
+  <data name="The Path to Ascension" xml:space="preserve"><value>晉升之路（The Path to Ascension）</value></data>
+  <data name="Junundu Rising" xml:space="preserve"><value>巨努多崛起（Junundu Rising）</value></data>
+  <data name="Maws of Torment" xml:space="preserve"><value>磨難血口（Maws of Torment）</value></data>
+  <data name="Forged with Fire" xml:space="preserve"><value>烈焰塑形（Forged with Fire）</value></data>
+  <data name="Serpents' Ire" xml:space="preserve"><value>巨蛇之怒（Serpents' Ire）</value></data>
+  <data name="Palawadan, Jewel of Istan" xml:space="preserve"><value>帕拉瓦之城，伊斯坦之寶（Palawadan, Jewel of Istan）</value></data>
+  <data name="Dangerous Prey" xml:space="preserve"><value>危險掠食者（Dangerous Prey）</value></data>
+  <data name="Thunderhead Keep" xml:space="preserve"><value>雷雲要塞（Thunderhead Keep）</value></data>
+  <data name="The Oil Floes" xml:space="preserve"><value>油料浮冰（The Oil Floes）</value></data>
+  <data name="A Concert for the Ages" xml:space="preserve"><value>老年音樂會（A Concert for the Ages）</value></data>
+  <data name="Ceremony of the Sacred Flame" xml:space="preserve"><value>神聖烈焰儀式（Ceremony of the Sacred Flame）</value></data>
+  <data name="The Haunting of Doomlore Shrine" xml:space="preserve"><value>鬧鬼的厄運傳說聖壇（The Haunting of Doomlore Shrine）</value></data>
+  <data name="The Ooze Pit Trials" xml:space="preserve"><value>軟泥鬥坑試煉（The Ooze Pit Trials）</value></data>
+  <data name="Storms of Winter" xml:space="preserve"><value>冬日風暴（Storms of Winter）</value></data>
+  <data name="Watched Events" xml:space="preserve"><value>已追蹤事件</value></data>
+</root>
