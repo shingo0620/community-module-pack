@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using DrawingColor = System.Drawing.Color;
 using DrawingFont = System.Drawing.Font;
 using DrawingFontStyle = System.Drawing.FontStyle;
+using DrawingGraphics = System.Drawing.Graphics;
+using XnaPoint = Microsoft.Xna.Framework.Point;
 using XnaRectangle = Microsoft.Xna.Framework.Rectangle;
 using XnaColor = Microsoft.Xna.Framework.Color;
 
@@ -39,7 +41,7 @@ namespace Events_Module {
             _texture = CreateTexture(text, fontSize, maxWidth);
 
             if (_texture != null) {
-                Size = new Point(_texture.Width, _texture.Height);
+                Size = new XnaPoint(_texture.Width, _texture.Height);
             }
         }
 
@@ -62,7 +64,7 @@ namespace Events_Module {
 
             DrawingFont font = null;
             Bitmap bitmap = null;
-            Graphics graphics = null;
+            DrawingGraphics graphics = null;
 
             try {
                 font = CreateFont(fontSize);
@@ -80,7 +82,7 @@ namespace Events_Module {
                 var height = Math.Max(1, (int)Math.Ceiling(font.GetHeight()) + 2);
 
                 bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-                graphics = Graphics.FromImage(bitmap);
+                graphics = DrawingGraphics.FromImage(bitmap);
                 graphics.Clear(DrawingColor.Transparent);
                 graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
                 graphics.DrawString(text,
@@ -130,7 +132,7 @@ namespace Events_Module {
 
         private static float MeasureWidth(string text, DrawingFont font) {
             using (var probe = new Bitmap(1, 1))
-            using (var graphics = Graphics.FromImage(probe)) {
+            using (var graphics = DrawingGraphics.FromImage(probe)) {
                 return graphics.MeasureString(text, font, int.MaxValue, StringFormat.GenericTypographic).Width;
             }
         }
