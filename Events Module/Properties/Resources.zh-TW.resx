@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="All Events" xml:space="preserve"><value>所有事件</value></data>
+  <data name="Alphabetical" xml:space="preserve"><value>依字母排序</value></data>
+  <data name="Events and Metas" xml:space="preserve"><value>事件與大型事件</value></data>
+  <data name="Hidden Events" xml:space="preserve"><value>隱藏的事件</value></data>
+  <data name="Next Up" xml:space="preserve"><value>即將開始</value></data>
+  <data name="Enable Notifications" xml:space="preserve"><value>啟用通知</value></data>
+  <data name="Mute Notifications" xml:space="preserve"><value>通知靜音</value></data>
+  <data name="Event Categories" xml:space="preserve"><value>事件分類</value></data>
+  <data name="Event Search" xml:space="preserve"><value>搜尋事件</value></data>
+  <data name="Read about this event on the wiki." xml:space="preserve"><value>在 Wiki 查看此事件。</value></data>
+  <data name="Nearby waypoint: {0}" xml:space="preserve"><value>附近傳送點：{0}</value></data>
+  <data name="Failed to copy waypoint to clipboard. Try again." xml:space="preserve"><value>無法將傳送點複製到剪貼簿，請再試一次。</value></data>
+  <data name="Copied waypoint to clipboard!" xml:space="preserve"><value>已將傳送點複製到剪貼簿！</value></data>
+  <data name="Click to toggle tracking for this event." xml:space="preserve"><value>點擊以切換此事件的追蹤狀態。</value></data>
+  <data name="Starts in {0}" xml:space="preserve"><value>{0} 後開始</value></data>
+  <data name="Upcoming Event Times:" xml:space="preserve"><value>接下來的事件時間：</value></data>
+  <data name="Notification_Tooltip" xml:space="preserve"><value>按左鍵複製傳送點。&#xA;按右鍵關閉通知。</value></data>
+  <data name="Failed to load metas from events.json!" xml:space="preserve"><value>無法從 events.json 載入大型事件！</value></data>
+
+  <data name="Day-Night Cycle" xml:space="preserve"><value>日夜循環</value></data>
+  <data name="Day" xml:space="preserve"><value>白天</value></data>
+  <data name="Night" xml:space="preserve"><value>夜晚</value></data>
+  <data name="Dawn" xml:space="preserve"><value>黎明</value></data>
+  <data name="Dusk" xml:space="preserve"><value>黃昏</value></data>
+  <data name="Server Reset" xml:space="preserve"><value>伺服器重置</value></data>
+  <data name="Other" xml:space="preserve"><value>其他</value></data>
+  <data name="Group Event" xml:space="preserve"><value>團隊事件</value></data>
+  <data name="World Bosses" xml:space="preserve"><value>世界首領</value></data>
+  <data name="Meta Event" xml:space="preserve"><value>大型事件</value></data>
+
+  <data name="Shadow Behemoth" xml:space="preserve"><value>暗影巨獸</value></data>
+  <data name="Svanir Shaman Chief" xml:space="preserve"><value>斯瓦尼亞薩滿酋長</value></data>
+  <data name="Fire Elemental" xml:space="preserve"><value>火元素</value></data>
+  <data name="Great Jungle Wurm" xml:space="preserve"><value>巨型叢林蟲</value></data>
+  <data name="The Shatterer" xml:space="preserve"><value>碎裂巨獸</value></data>
+  <data name="Claw of Jormag" xml:space="preserve"><value>卓瑪之爪</value></data>
+  <data name="Tequatl the Sunless" xml:space="preserve"><value>無日者泰瑞亞特</value></data>
+</root>
