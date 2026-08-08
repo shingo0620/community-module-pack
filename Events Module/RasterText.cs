@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using DrawingColor = System.Drawing.Color;
 using DrawingFont = System.Drawing.Font;
 using DrawingFontStyle = System.Drawing.FontStyle;
+using XnaRectangle = Microsoft.Xna.Framework.Rectangle;
 using XnaColor = Microsoft.Xna.Framework.Color;
 
 namespace Events_Module {
@@ -42,11 +43,11 @@ namespace Events_Module {
             }
         }
 
-        protected override void Paint(SpriteBatch spriteBatch, Rectangle bounds) {
+        protected override void Paint(SpriteBatch spriteBatch, XnaRectangle bounds) {
             if (_texture != null) {
                 spriteBatch.DrawOnCtrl(this,
                                        _texture,
-                                       new Rectangle(0, 0, _texture.Width, _texture.Height),
+                                       new XnaRectangle(0, 0, _texture.Width, _texture.Height),
                                        XnaColor.White);
             }
         }
