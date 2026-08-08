@@ -47,10 +47,10 @@ jobs:
 
           Write-Host "繁中資源驗證成功：$($resource.FullName)"
 
-      - name: Upload build output
+      - name: Upload BHM module
         uses: actions/upload-artifact@v4
         with:
           name: events-module-zh-tw
-          path: Events Module/bin/Release/**
+          path: 'Events Module/bin/Release/Events Module.bhm'
           if-no-files-found: error
           retention-days: 14
