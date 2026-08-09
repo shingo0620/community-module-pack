@@ -46,7 +46,6 @@ namespace Events_Module {
                 Font             = Content.DefaultFont14,
                 BasicTooltipText = tooltipText,
                 Text             = wrappedTitle,
-                WrapText         = true,
             };
 
             string wrappedMessage = DrawUtil.WrapText(Content.DefaultFont14, message, textWidth);
@@ -57,7 +56,6 @@ namespace Events_Module {
                 Size             = new Point(textWidth, 22),
                 BasicTooltipText = tooltipText,
                 Text             = wrappedMessage,
-                WrapText         = true,
             };
 
             _visibleNotifications++;
