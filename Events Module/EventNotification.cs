@@ -8,10 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Events_Module {
     public class EventNotification : Container {
 
-        private const int NOTIFICATION_WIDTH = 280;
-        private const int NOTIFICATION_HEIGHT = 64;
-
-        private const int ICON_SIZE = 64;
+        private const int NOTIFICATION_WIDTH = 300;
+        private const int NOTIFICATION_HEIGHT = 84;
+        private const int ICON_COLUMN_WIDTH = 68;
 
         #region Load Static
 
@@ -28,44 +27,37 @@ namespace Events_Module {
         private static int _visibleNotifications = 0;
 
         private EventNotification(string title, AsyncTexture2D icon, string message, string waypoint) {
-            string tooltipText = Resources.ResourceManager.GetString("Notification_Tooltip", System.Globalization.CultureInfo.InvariantCulture);
+            string tooltipText = EventsModule.GetLocalizedString("Notification_Tooltip");
 
             _icon = icon;
 
             this.Opacity          = 0f;
-            this.Size             = new Point(NOTIFICATION_WIDTH,                                 NOTIFICATION_HEIGHT);
+            this.Size             = new Point(NOTIFICATION_WIDTH, NOTIFICATION_HEIGHT);
             this.Location         = new Point(EventsModule.ModuleInstance.NotificationPosition.X, EventsModule.ModuleInstance.NotificationPosition.Y + (NOTIFICATION_HEIGHT + 15) * _visibleNotifications);
             this.BasicTooltipText = tooltipText;
 
-            var rasterTitle = new RasterText(title, 14, this.Width - NOTIFICATION_HEIGHT - 20) {
+            int textWidth = this.Width - ICON_COLUMN_WIDTH - 16;
+            string wrappedTitle = DrawUtil.WrapText(Content.DefaultFont14, title, textWidth);
+
+            new Label() {
                 Parent           = this,
-                Location         = new Point(NOTIFICATION_HEIGHT + 10, 5),
+                Location         = new Point(ICON_COLUMN_WIDTH + 8, 7),
+                Size             = new Point(textWidth, 46),
+                Font             = Content.DefaultFont14,
                 BasicTooltipText = tooltipText,
-                ZIndex            = 1
+                Text             = wrappedTitle,
+                WrapText         = true,
             };
 
-            if (!rasterTitle.HasTexture) {
-                rasterTitle.Dispose();
+            string wrappedMessage = DrawUtil.WrapText(Content.DefaultFont14, message, textWidth);
 
-                var wrappedTitle = DrawUtil.WrapText(Content.DefaultFont14, title, this.Width - NOTIFICATION_HEIGHT - 20);
-                new Label() {
-                    Parent           = this,
-                    Location         = new Point(NOTIFICATION_HEIGHT + 10, 5),
-                    Size             = new Point(this.Width - NOTIFICATION_HEIGHT - 10, this.Height / 2),
-                    Font             = Content.DefaultFont14,
-                    BasicTooltipText = tooltipText,
-                    Text             = wrappedTitle,
-                };
-            }
-
-            string wrapped = DrawUtil.WrapText(Content.DefaultFont14, message, this.Width - NOTIFICATION_HEIGHT - 20);
-
-            var messageLbl = new Label() {
+            new Label() {
                 Parent           = this,
-                Location         = new Point(NOTIFICATION_HEIGHT                   + 10, this.Height / 2),
-                Size             = new Point(this.Width - NOTIFICATION_HEIGHT - 10, this.Height / 2),
+                Location         = new Point(ICON_COLUMN_WIDTH + 8, 57),
+                Size             = new Point(textWidth, 22),
                 BasicTooltipText = tooltipText,
-                Text             = wrapped,
+                Text             = wrappedMessage,
+                WrapText         = true,
             };
 
             _visibleNotifications++;
@@ -91,11 +83,10 @@ namespace Events_Module {
 
         private Rectangle _layoutIconBounds;
 
-        /// <inheritdoc />
         public override void RecalculateLayout() {
             int icoSize = 52;
 
-            _layoutIconBounds = new Rectangle(NOTIFICATION_HEIGHT / 2 - icoSize / 2,
+            _layoutIconBounds = new Rectangle(ICON_COLUMN_WIDTH / 2 - icoSize / 2,
                                               NOTIFICATION_HEIGHT / 2 - icoSize / 2,
                                               icoSize,
                                               icoSize);
