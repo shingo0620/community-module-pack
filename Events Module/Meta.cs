@@ -21,6 +21,18 @@ namespace Events_Module {
 
         private static readonly Logger Logger = Logger.GetLogger<Meta>();
 
+        private static readonly HashSet<string> RecommendedEventNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
+            "Shadow Behemoth",
+            "Fire Elemental",
+            "Great Jungle Wurm",
+            "Svanir Shaman Chief",
+            "Inquest Golem Mark II",
+            "The Shatterer",
+            "Tequatl the Sunless",
+            "Claw of Jormag",
+            "Evolved Jungle Wurm"
+        };
+
         [JsonObject]
         public struct Phase {
             public string Name     { get; set; }
@@ -100,6 +112,8 @@ namespace Events_Module {
         [JsonIgnore]
         public AsyncTexture2D Texture { get; private set; } = new AsyncTexture2D(GameService.Content.GetTexture(@"102377"));
 
+        public static bool IsRecommended(string eventName) => RecommendedEventNames.Contains(eventName ?? string.Empty);
+
         public static void UpdateEventSchedules() {
             if (Events == null) return;
 
@@ -109,14 +123,16 @@ namespace Events_Module {
                 TimeSpan[] justTimes = e.Times.Select(time => time.ToLocalTime().TimeOfDay).OrderBy(time => time.TotalSeconds).ToArray();
                 var nextTime = justTimes.FirstOrDefault(ts => ts.TotalSeconds >= tsNow.TotalSeconds);
 
-                if (nextTime.Ticks == 0) { // Timespan default is Ticks == 0
+                if (nextTime.Ticks == 0) {
                     e.NextTime = DateTime.Today.AddDays(1) + justTimes[0];
                 } else {
                     e.NextTime = DateTime.Today + nextTime;
                 }
 
                 double timeUntil = (e.NextTime - DateTime.Now).TotalMinutes;
-                if (timeUntil < (e.Reminder ?? -1) && e.IsWatched) {
+                bool shouldNotify = IsRecommended(e.Name);
+
+                if (timeUntil < (e.Reminder ?? -1) && e.IsWatched && shouldNotify) {
                     if (!e.HasAlerted && EventsModule.ModuleInstance.NotificationsEnabled) {
                         EventNotification.ShowNotification(
                             EventsModule.GetLocalizedString(e.Name),
@@ -156,7 +172,6 @@ namespace Events_Module {
                 meta._times.Add(meta.Offset);
 
                 if (meta.RepeatInterval != null && meta.RepeatInterval.Value.TotalSeconds > 0) {
-                    // Subtract the repeat interval to ensure that the start time isn't included twice
                     double dailyMinutes = 60 * 24 - meta.RepeatInterval.Value.TotalMinutes;
                     var lastTime = meta.Offset;
 
@@ -178,20 +193,13 @@ namespace Events_Module {
                 } else {
                     uniqueEvents.Add(meta);
                 }
-
-                // TODO: Disabled - blocked by wiki and we should likely prequery this info and host it statically somewhere.
-                //if (!string.IsNullOrEmpty(meta._wikiEn)) {
-                //    var pageEn = new Uri(meta._wikiEn).Segments.Last();
-                //    var task = GetInterwikiLinks(pageEn).ContinueWith(async v => meta._wikiLinks = await v);
-                //    wikiTasks.Add(task);
-                //}
             }
 
             await Task.WhenAll(wikiTasks.ToArray());
 
             Events = uniqueEvents;
 
-            Logger.Info(@"Loaded {eventCount} events.", Events.Count);
+            Logger.Info(@"Loaded {eventCount} events ({recommendedCount} casual recommendations).", Events.Count, Events.Count(e => IsRecommended(e.Name)));
 
             UpdateEventSchedules();
         }
