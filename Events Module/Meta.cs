@@ -11,7 +11,6 @@ using Blish_HUD;
 using Blish_HUD.Content;
 using Blish_HUD.Modules.Managers;
 using Events_Module.Properties;
-using Humanizer;
 using Newtonsoft.Json;
 
 namespace Events_Module {
@@ -61,7 +60,7 @@ namespace Events_Module {
             set => _wikiEn = value;
         }
 
-        public int?     Duration   { get; set; }
+        public int? Duration { get; set; }
 
         [JsonProperty(PropertyName = "Alert")]
         public int? Reminder { get; set; }
@@ -69,8 +68,8 @@ namespace Events_Module {
         [JsonProperty(PropertyName = "Repeat")]
         public TimeSpan? RepeatInterval { get; set; }
 
-        protected List<DateTime>          _times = new List<DateTime>();
-        public    IReadOnlyList<DateTime> Times => _times;
+        protected List<DateTime> _times = new List<DateTime>();
+        public IReadOnlyList<DateTime> Times => _times;
 
         public Phase[] Phases { get; set; }
 
@@ -81,7 +80,6 @@ namespace Events_Module {
                 if (_nextTime == value) return;
 
                 _nextTime = value;
-
                 this.OnNextRunTimeChanged?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -114,6 +112,25 @@ namespace Events_Module {
 
         public static bool IsRecommended(string eventName) => RecommendedEventNames.Contains(eventName ?? string.Empty);
 
+        private static string GetChineseNotificationTitle(string eventName) {
+            string localized = EventsModule.GetLocalizedString(eventName);
+
+            // 列表保留「中文（English）」作為查詢參照，但彈出通知只顯示中文。
+            int englishReferenceStart = localized.LastIndexOf('（');
+            if (englishReferenceStart > 0 && localized.EndsWith("）", StringComparison.Ordinal)) {
+                return localized.Substring(0, englishReferenceStart).TrimEnd();
+            }
+
+            // 若未來新增的事件暫時沒有 lang5/遊戲內對照，資源檔仍應提供中文翻譯；
+            // 這裡只負責避免通知退回雙語顯示。
+            return localized;
+        }
+
+        private static string GetChineseCountdown(double timeUntilMinutes) {
+            int minutes = Math.Max(0, (int)Math.Ceiling(timeUntilMinutes));
+            return minutes <= 1 ? "即將開始" : $"{minutes} 分鐘後開始";
+        }
+
         public static void UpdateEventSchedules() {
             if (Events == null) return;
 
@@ -135,9 +152,9 @@ namespace Events_Module {
                 if (timeUntil < (e.Reminder ?? -1) && e.IsWatched && shouldNotify) {
                     if (!e.HasAlerted && EventsModule.ModuleInstance.NotificationsEnabled) {
                         EventNotification.ShowNotification(
-                            EventsModule.GetLocalizedString(e.Name),
+                            GetChineseNotificationTitle(e.Name),
                             e.Texture,
-                            string.Format(Resources.Starts_in__0_, timeUntil.Minutes().Humanize()),
+                            GetChineseCountdown(timeUntil),
                             10f,
                             e.Waypoint
                         );
@@ -165,7 +182,6 @@ namespace Events_Module {
             }
 
             var uniqueEvents = new List<Meta>();
-
             var wikiTasks = new List<Task>();
 
             foreach (var meta in metas) {
@@ -177,11 +193,8 @@ namespace Events_Module {
 
                     while (dailyMinutes > 0) {
                         var intervalTime = lastTime.Add(meta.RepeatInterval.Value);
-
                         meta._times.Add(intervalTime);
-
                         lastTime = intervalTime;
-
                         dailyMinutes -= meta.RepeatInterval.Value.TotalMinutes;
                     }
                 }
@@ -227,7 +240,7 @@ namespace Events_Module {
                 }
                 return links;
             }
-            
+
             return null;
         }
     }
