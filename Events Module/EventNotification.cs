@@ -58,15 +58,25 @@ namespace Events_Module {
                 };
             }
 
-            string wrapped = DrawUtil.WrapText(Content.DefaultFont14, message, this.Width - NOTIFICATION_HEIGHT - 20);
-
-            var messageLbl = new Label() {
+            var rasterMessage = new RasterText(message, 14, this.Width - NOTIFICATION_HEIGHT - 20) {
                 Parent           = this,
-                Location         = new Point(NOTIFICATION_HEIGHT                   + 10, this.Height / 2),
-                Size             = new Point(this.Width - NOTIFICATION_HEIGHT - 10, this.Height / 2),
+                Location         = new Point(NOTIFICATION_HEIGHT + 10, this.Height / 2),
                 BasicTooltipText = tooltipText,
-                Text             = wrapped,
+                ZIndex            = 1
             };
+
+            if (!rasterMessage.HasTexture) {
+                rasterMessage.Dispose();
+
+                var wrappedMessage = DrawUtil.WrapText(Content.DefaultFont14, message, this.Width - NOTIFICATION_HEIGHT - 20);
+                new Label() {
+                    Parent           = this,
+                    Location         = new Point(NOTIFICATION_HEIGHT + 10, this.Height / 2),
+                    Size             = new Point(this.Width - NOTIFICATION_HEIGHT - 10, this.Height / 2),
+                    BasicTooltipText = tooltipText,
+                    Text             = wrappedMessage,
+                };
+            }
 
             _visibleNotifications++;
 
