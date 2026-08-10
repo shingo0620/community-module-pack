@@ -166,6 +166,33 @@
     <value>Starts in {0}</value>
     <comment>{0} is time</comment>
   </data>
+  <data name="EventDetails_Location" xml:space="preserve">
+    <value>Location: {0}</value>
+  </data>
+  <data name="EventDetails_Difficulty" xml:space="preserve">
+    <value>Difficulty: {0}</value>
+  </data>
+  <data name="EventDetails_Duration" xml:space="preserve">
+    <value>Duration: {0}</value>
+  </data>
+  <data name="EventDetails_AlsoKnownAs" xml:space="preserve">
+    <value>Also known as: {0}</value>
+  </data>
+  <data name="EventDetails_Hours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="EventDetails_Minutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Hardcore" xml:space="preserve">
+    <value>Hardcore</value>
+  </data>
+  <data name="Low-level" xml:space="preserve">
+    <value>Low-level</value>
+  </data>
   <data name="Upcoming Event Times:" xml:space="preserve">
     <value>Upcoming Event Times:</value>
   </data>

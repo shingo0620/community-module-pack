@@ -248,6 +248,60 @@ namespace Events_Module.Properties {
                 return ResourceManager.GetString("Dusk", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Also known as: {0}.
+        /// </summary>
+        internal static string EventDetails_AlsoKnownAs {
+            get {
+                return ResourceManager.GetString("EventDetails_AlsoKnownAs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Difficulty: {0}.
+        /// </summary>
+        internal static string EventDetails_Difficulty {
+            get {
+                return ResourceManager.GetString("EventDetails_Difficulty", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Duration: {0}.
+        /// </summary>
+        internal static string EventDetails_Duration {
+            get {
+                return ResourceManager.GetString("EventDetails_Duration", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} hours.
+        /// </summary>
+        internal static string EventDetails_Hours {
+            get {
+                return ResourceManager.GetString("EventDetails_Hours", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Location: {0}.
+        /// </summary>
+        internal static string EventDetails_Location {
+            get {
+                return ResourceManager.GetString("EventDetails_Location", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} minutes.
+        /// </summary>
+        internal static string EventDetails_Minutes {
+            get {
+                return ResourceManager.GetString("EventDetails_Minutes", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Enable Notifications.

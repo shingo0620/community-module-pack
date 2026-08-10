@@ -46,6 +46,7 @@ namespace Events_Module {
         private const int TIMER_RECALC_RATE = 5;
 
         private List<DetailsButton> _displayedEvents;
+        private Dictionary<DetailsButton, Meta> _eventByButton;
 
         private WindowTab _eventsTab;
 
@@ -93,6 +94,7 @@ namespace Events_Module {
 
         protected override void Initialize() {
             _displayedEvents = new List<DetailsButton>();
+            _eventByButton = new Dictionary<DetailsButton, Meta>();
             GameService.Overlay.UserLocaleChanged += ChangeLocalization;
         }
 
@@ -129,6 +131,8 @@ namespace Events_Module {
         }
 
         private Panel BuildSettingPanel(Rectangle panelBounds) {
+            _eventByButton.Clear();
+
             var etPanel = new Panel() {
                 CanScroll = false,
                 Size = panelBounds.Size
@@ -198,13 +202,15 @@ namespace Events_Module {
 
                 var es2 = new DetailsButton {
                     Parent           = eventPanel,
-                    BasicTooltipText = GetLocalizedString(meta.Category),
+                    BasicTooltipText = GetEventDetails(meta),
                     Text             = GetLocalizedString(meta.Name),
                     IconSize         = DetailsIconSize.Small,
                     ShowVignette     = false,
                     HighlightType    = DetailsHighlightType.LightHighlight,
                     ShowToggleButton = true
                 };
+
+                _eventByButton[es2] = meta;
 
                 new RasterText(es2.Text, 14, 200) {
                     Parent   = es2,
@@ -307,8 +313,9 @@ namespace Events_Module {
 
             var evWatched = eventCategories.AddMenuItem(_ecWatchedEvents);
             evWatched.Click += delegate {
+                Meta watchedMeta;
                 eventPanel.FilterChildren<DetailsButton>(db =>
-                    Meta.Events.Find(m => db.Text == GetLocalizedString(m.Name)).IsWatched
+                    _eventByButton.TryGetValue(db, out watchedMeta) && watchedMeta.IsWatched
                 );
             };
 
@@ -316,7 +323,11 @@ namespace Events_Module {
                 var category = GetLocalizedString(e.Key);
                 var ev = eventCategories.AddMenuItem(category);
                 ev.Click += delegate {
-                    eventPanel.FilterChildren<DetailsButton>(db => string.Equals(db.BasicTooltipText, category));
+                    Meta eventMeta;
+                    eventPanel.FilterChildren<DetailsButton>(db =>
+                        _eventByButton.TryGetValue(db, out eventMeta) &&
+                        string.Equals(GetLocalizedString(eventMeta.Category), category)
+                    );
                 };
             }
 
@@ -373,6 +384,42 @@ namespace Events_Module {
             }
 
             return msg.ToString();
+        }
+
+        private string GetEventDetails(Meta meta) {
+            var msg = new StringBuilder();
+
+            msg.AppendLine(GetLocalizedString(meta.Category));
+
+            if (!string.IsNullOrWhiteSpace(meta.Location)) {
+                msg.AppendLine(string.Format(Resources.EventDetails_Location, meta.Location));
+            }
+
+            if (!string.IsNullOrWhiteSpace(meta.Difficulty)) {
+                msg.AppendLine(string.Format(Resources.EventDetails_Difficulty,
+                                             GetLocalizedString(meta.Difficulty)));
+            }
+
+            if (meta.Duration.HasValue && meta.Duration.Value > 0) {
+                msg.AppendLine(string.Format(Resources.EventDetails_Duration,
+                                             FormatDuration(meta.Duration.Value)));
+            }
+
+            if (!string.IsNullOrWhiteSpace(meta.Colloquial)) {
+                msg.AppendLine(string.Format(Resources.EventDetails_AlsoKnownAs, meta.Colloquial));
+            }
+
+            msg.AppendLine();
+            msg.Append(GetTimeDetails(meta));
+            return msg.ToString();
+        }
+
+        private static string FormatDuration(int minutes) {
+            if (minutes % 60 == 0) {
+                return string.Format(Resources.EventDetails_Hours, minutes / 60);
+            }
+
+            return string.Format(Resources.EventDetails_Minutes, minutes);
         }
 
         private void UpdateSort(object sender, EventArgs e) {

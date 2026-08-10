@@ -11,8 +11,6 @@
   <data name="Next Up" xml:space="preserve"><value>即將開始</value></data>
   <data name="Enable Notifications" xml:space="preserve"><value>啟用通知</value></data>
   <data name="Mute Notifications" xml:space="preserve"><value>通知靜音</value></data>
-  <data name="Recommended Events" xml:space="preserve"><value>推薦事件</value></data>
-  <data name="Recommended notifications only" xml:space="preserve"><value>只通知推薦事件</value></data>
   <data name="Event Categories" xml:space="preserve"><value>事件分類</value></data>
   <data name="Event Search" xml:space="preserve"><value>搜尋事件</value></data>
   <data name="Read about this event on the wiki." xml:space="preserve"><value>在 Wiki 查看此事件。</value></data>
@@ -21,6 +19,15 @@
   <data name="Copied waypoint to clipboard!" xml:space="preserve"><value>已將傳送點複製到剪貼簿！</value></data>
   <data name="Click to toggle tracking for this event." xml:space="preserve"><value>點擊以切換此事件的追蹤狀態。</value></data>
   <data name="Starts in {0}" xml:space="preserve"><value>{0} 後開始</value></data>
+  <data name="EventDetails_Location" xml:space="preserve"><value>地圖：{0}</value></data>
+  <data name="EventDetails_Difficulty" xml:space="preserve"><value>難度：{0}</value></data>
+  <data name="EventDetails_Duration" xml:space="preserve"><value>持續時間：{0}</value></data>
+  <data name="EventDetails_AlsoKnownAs" xml:space="preserve"><value>俗稱：{0}</value></data>
+  <data name="EventDetails_Hours" xml:space="preserve"><value>{0} 小時</value></data>
+  <data name="EventDetails_Minutes" xml:space="preserve"><value>{0} 分鐘</value></data>
+  <data name="Standard" xml:space="preserve"><value>一般</value></data>
+  <data name="Hardcore" xml:space="preserve"><value>高難度</value></data>
+  <data name="Low-level" xml:space="preserve"><value>低等級</value></data>
   <data name="Upcoming Event Times:" xml:space="preserve"><value>接下來的事件時間：</value></data>
   <data name="Notification_Tooltip" xml:space="preserve"><value>按左鍵複製傳送點。&#xA;按右鍵關閉通知。</value></data>
   <data name="Failed to load metas from events.json!" xml:space="preserve"><value>無法從 events.json 載入大型事件！</value></data>
@@ -49,7 +56,7 @@
   <data name="Shadow Behemoth" xml:space="preserve"><value>暗影巨獸（Shadow Behemoth）</value></data>
   <data name="The Shatterer" xml:space="preserve"><value>碎裂巨獸（The Shatterer）</value></data>
   <data name="Svanir Shaman Chief" xml:space="preserve"><value>斯瓦尼亞薩滿酋長（Svanir Shaman Chief）</value></data>
-  <data name="Tequatl the Sunless" xml:space="preserve"><value>陰鬼&quot;吞噬托&quot;（Tequatl the Sunless）</value></data>
+  <data name="Tequatl the Sunless" xml:space="preserve"><value>陰鬼"吞噬托"（Tequatl the Sunless）</value></data>
   <data name="Meta Event" xml:space="preserve"><value>大型事件</value></data>
   <data name="Crash Site" xml:space="preserve"><value>墜毀點（Crash Site）</value></data>
   <data name="Sandstorm" xml:space="preserve"><value>沙塵暴！（Sandstorm）</value></data>
@@ -79,4 +86,6 @@
   <data name="The Ooze Pit Trials" xml:space="preserve"><value>軟泥鬥坑試煉（The Ooze Pit Trials）</value></data>
   <data name="Storms of Winter" xml:space="preserve"><value>冬日風暴（Storms of Winter）</value></data>
   <data name="Watched Events" xml:space="preserve"><value>已追蹤事件</value></data>
+  <data name="Recommended Events" xml:space="preserve"><value>推薦事件</value></data>
+  <data name="Recommended notifications only" xml:space="preserve"><value>只通知推薦事件</value></data>
 </root>
