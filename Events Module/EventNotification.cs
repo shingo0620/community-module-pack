@@ -30,6 +30,14 @@ namespace Events_Module {
         private EventNotification(string title, AsyncTexture2D icon, string message, string waypoint) {
             string tooltipText = Resources.ResourceManager.GetString("Notification_Tooltip", System.Globalization.CultureInfo.InvariantCulture);
 
+            DiagnosticLog.Info(string.Format(
+                "Notification created. Title=\"{0}\"; Message=\"{1}\"; ResourceCulture={2}; CurrentUICulture={3}; WaypointLength={4}",
+                title,
+                message,
+                Resources.Culture?.Name ?? "(null)",
+                System.Globalization.CultureInfo.CurrentUICulture.Name,
+                waypoint?.Length ?? 0));
+
             _icon = icon;
 
             this.Opacity          = 0f;
@@ -45,6 +53,7 @@ namespace Events_Module {
             };
 
             if (!rasterTitle.HasTexture) {
+                DiagnosticLog.Info("Notification title RasterText failed; using bitmap-font fallback.");
                 rasterTitle.Dispose();
 
                 var wrappedTitle = DrawUtil.WrapText(Content.DefaultFont14, title, this.Width - NOTIFICATION_HEIGHT - 20);
@@ -66,6 +75,7 @@ namespace Events_Module {
             };
 
             if (!rasterMessage.HasTexture) {
+                DiagnosticLog.Info("Notification message RasterText failed; using bitmap-font fallback.");
                 rasterMessage.Dispose();
 
                 var wrappedMessage = DrawUtil.WrapText(Content.DefaultFont14, message, this.Width - NOTIFICATION_HEIGHT - 20);
@@ -77,6 +87,11 @@ namespace Events_Module {
                     Text             = wrappedMessage,
                 };
             }
+
+            DiagnosticLog.Info(string.Format(
+                "Notification render result. TitleRaster={0}; MessageRaster={1}",
+                rasterTitle.HasTexture,
+                rasterMessage.HasTexture));
 
             _visibleNotifications++;
 

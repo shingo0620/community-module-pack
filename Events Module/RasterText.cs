@@ -104,6 +104,7 @@ namespace Events_Module {
                 return texture;
             } catch (Exception e) {
                 Logger.GetLogger<RasterText>().Warn(e, "Unable to rasterize module text.");
+                DiagnosticLog.Error("Unable to rasterize module text.", e);
                 return null;
             } finally {
                 graphics?.Dispose();

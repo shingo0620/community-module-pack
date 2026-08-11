@@ -26,6 +26,7 @@ namespace Events_Module {
 
         static EventsModule() {
             Resources.Culture = ModuleCulture;
+            DiagnosticLog.Info(string.Format("Events Module started. Culture={0}; LogPath={1}", ModuleCulture.Name, DiagnosticLog.Path));
         }
 
         internal static EventsModule ModuleInstance;

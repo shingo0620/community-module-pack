@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BasicSettingsView.cs" />
+    <Compile Include="DiagnosticLog.cs" />
     <Compile Include="EventNotification.cs" />
     <Compile Include="EventsModule.cs" />
     <Compile Include="Meta.cs" />
